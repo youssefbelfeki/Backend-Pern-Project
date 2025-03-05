@@ -1,19 +1,21 @@
+// const express = require('express');
+import express from 'express';
+import bookRouter from './app/routes/book.routes.js';
+import db from './app/config/database.js';
 
-const express = require('express')
-const bookRouter = require('./app/routes/book.routes')
-const { connect } = require('./app/config/database')
-const app = express()
+import jsonparser from 'body-parser'
+const app = express();
 
-app.use(require('body-parser').json())
+app.use(jsonparser.json())
 
-app.get('/', (req, res) => {
-    res.send('Hello from Express!');
+app.get('/',(req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('hello world from new second branch!\n');
 })
-
-connect()
 app.use(bookRouter)
-app.listen(3000, () => {
-  console.log('Listening on 127.0.0.1:3000');
-});
 
-// run with `node server.mjs`
+db.checkCon()
+// starts a simple http server locally on port 3000
+app.listen(3005, () => {
+  console.log('Listening on 3005');
+});

@@ -1,15 +1,15 @@
-const { Sequelize } = require('sequelize');
-const development = require('./config');
-
+import { Sequelize } from 'sequelize' ;
+import development from './config.js';
 const sequelize = new Sequelize(development);
 
-const connect = async () => {
+const checkCon=async()=>{
+    console.log('Checking database connection...');
+    console.log('development ->', development)
     try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
       } catch (error) {
         console.error('Unable to connect to the database:', error);
       }
-    }
-
-module.exports = {connect};
+}
+export default {checkCon, sequelize};
